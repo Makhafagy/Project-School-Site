@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+
+<?php
+
+  $user = "root";
+  $password = "";
+  $mydb = "mariadb";
+
+  $link = mysqli_connect("localhost", $user, $password, $mydb);
+
+  if (!$link){
+    die('Could not connect: ' . mysqli_error());
+  }
+
+  if (isset($_POST['submit3'])){
+    echo '  Connected Successfully.';
+    mysqli_select_db($link, $mydb);
+
+    $course_number = $_POST["courseNum"];
+    $query = "SELECT S.CLASSROOM, S.MEETING, S.BEGIN_TIME, S.END_TIME, COUNT(E.E_SNUM) as 'Count'
+              FROM Courses C, Enrollment E, Sections S
+              WHERE E.E_SNUM = S.SNUM
+              AND C.CNUM = S.S_CNUM
+              AND C.CNUM = '$course_number' GROUP BY SNUM";
+    $result = $link->query($query);
+
+    if (!$result){
+      echo "  query ran unsuccessfully: ($query) => " . mysqli_error($link);
+      exit;
+    }
+
+    $num_rows = mysqli_num_rows($result);
+
+    if ($num_rows > 0){
+      echo "  $num_rows rows were found <br>";
+    }
+    else{
+      echo '  No data found';
+      exit;
+    }
+  }
+
+?>
+
+<body>
+  <div class="container-fluid text-secondary text-center">
+    <h2>Class Registration</h2>
+  </div>
+  <div class="container-fluid text-center">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr class="info text-center">
+            <th>Classroom</th>
+            <th>Meeting Times</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Enrolled Students</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      <?php
+        while($row = mysqli_fetch_assoc($result))
+        {
+      ?>
+
+      <tr>
+          <td><?php echo $row["CLASSROOM"];?></td>
+          <td><?php echo $row["MEETING"];?></td>
+          <td><?php echo $row["BEGIN_TIME"];?></td>
+          <td><?php echo $row["END_TIME"];?></td>
+          <td><?php echo $row["Count"];?></td>
+      </tr>
+
+      <?php
+        }
+      ?>
+
+      </tbody>
+    </table>
+    <div class="text-center">
+      <button type="button" class="btn btn-primary" onclick="goBack()">Return</button>
+    </div>
+
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+
+  </div>
+</body>
+
+</html>
+
+<?php
+mysqli_close($link);
+?>

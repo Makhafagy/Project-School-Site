@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS332s13</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+</head>
+
+<body>
+    
+    <br>
+
+    <body class="container">
+        <div class=" container bg-primary">
+            <h1>CPSC 332 Project:</h1>
+        </div>
+        <div>
+            <header>
+                <h2>Professor Menu</h2>
+            </header>
+
+            <!--PROFESSOR SECTION-->
+
+            <section>
+                <form class="form-group" action="professor.php" method="POST">
+                    <div class="professor">
+                        <label for="ssn">SSN</label>
+                        <input class="form-control" type="ssn" name="ssn" id="ssn" placeholder="xxxxxxxxx"
+                            pattern="[0-9]{3}[0-9]{2}[0-9]{4}">
+                    </div>
+                    <input type="submit" name="submit1" value="Search" id="submit">
+                    <input type="reset" name="reset1" value="Reset" id="submit">
+
+                </form>
+
+                <br>
+
+                <form class="form-group" action="course.php" method="POST">
+                    <label for="name">Course Information</label>
+                    <div class="course">
+                        <input class="form-control" type="number" id="cnum" name="courseNum"
+                            placeholder="Course Number">
+                        <input class="form-control" type="number" id="snum" name="sectionNum"
+                            placeholder="Section Number">
+                    </div>
+                    <input type="submit" name="submit2" value="Search" id="submit">
+                    <input type="reset" name="reset2" value="Reset" id="submit">
+                </form>
+            </section>
+
+            <br>
+
+            <body class="container">
+                <div>
+                    <header>
+                        <h2>Student Menu</h2>
+                    </header>
+
+                    <!--STUDENT SECTION-->
+
+                    <section>
+                        <form class="form-group" action="registration.php" method="POST">
+                            <label for="name">Class Registration</label>
+                            <div class="course">
+                                <input class="form-control" type="number" id="cnum" name="courseNum"
+                                    placeholder="Course Number">
+                            </div>
+                            <input type="submit" name="submit3" value="Search" id="submit">
+                            <input type="reset" name="reset3" value="Reset" id="submit">
+                        </form>
+
+                        <br>
+
+                        <form class="form-group" action="student.php" method="POST">
+                            <label for="name">Student Transcript</label>
+                            <div class="data">
+                                <input class="form-control" type="number" id="idNumber" name="cwid"
+                                    placeholder="ID Number">
+                            </div>
+                            <input type="submit" name="submit4" value="Submit" id="submit">
+                            <input type="reset" name="reset4" value="Reset" id="submit">
+                    </section>
+                </div>
+            </body>
+        </div>
+    </body>
+
+</html>
